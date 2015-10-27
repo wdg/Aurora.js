@@ -1,6 +1,7 @@
 <?php
 
- $replace = "/_.js_data\//";
+ // $replace = "/_.js_data\//";
+ $replace = "/_.js.data\//";
  $repalso = "/src='_.js'/";
  $thisDir = opendir('.');
 
