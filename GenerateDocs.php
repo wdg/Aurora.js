@@ -237,7 +237,7 @@ foreach ($functions as $functionName => $functionValue)
 				$warning_data = fullText($a_data, 1);
 			}
 
-			if ($a_data[0] == "@new" Or $a_data[0] == "announce")
+			if ($a_data[0] == "@since" Or $a_data[0] == "@new" Or $a_data[0] == "@announce")
 			{
 				$isNew        = true;
 				if ( isset ( $a_data[1] ) )
