@@ -330,7 +330,8 @@ if ( !isBeta() )
 	file_put_contents("../_.js.wiki/Function List.md", $WIKI);
 else
 	file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
-	file_put_contents("../_.js.wiki/Function_List_" . end(explode("/",__dir__)) . ".md", $WIKI);
+
+file_put_contents("../_.js.wiki/Function_List_" . end(explode("/",__dir__)) . ".md", $WIKI);
 // i promise, that the _.js code is not so terrible as this one!
 /// Changed: Added those nasty comments. (SEP'15)
 function writeToWiki($filename, $contents)
