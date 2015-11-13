@@ -14,7 +14,7 @@
  			$file = $file . "/index.html";
  			$read = file_get_contents($file);
  			$read = preg_replace($replace, null, $read);
- 			$read = preg_replace($repalso, "src='https://raw.githubusercontent.com/wesdegroot/_.js/master/".substr($file, 0, 3)."/_.js'", $read);
+ 			$read = preg_replace($repalso, "src='https://raw.githubusercontent.com/wdg/_.js/master/".substr($file, 0, 3)."/_.js'", $read);
  			file_put_contents($file, $read);
  		}
  	}
@@ -24,7 +24,7 @@
  $file = "index.html";
  $read = file_get_contents($file);
  $read = preg_replace($replace, null, $read);
- $read = preg_replace($repalso, "src='https://raw.githubusercontent.com/wesdegroot/_.js/master/latest/_.js'", $read);
+ $read = preg_replace($repalso, "src='https://raw.githubusercontent.com/wdg/_.js/master/latest/_.js'", $read);
  file_put_contents($file, $read);
 
 ?>
