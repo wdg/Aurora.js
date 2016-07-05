@@ -26,7 +26,7 @@ function isBeta ( )
 }
 
 // Get the version (name of dir, splitted into dots)
-$version 	 = end(explode("/",__dir__));
+$version 	 = @end(explode("/",__dir__));
 $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." . substr($version, 2, 1);
 
 // WIKI WIKI!
@@ -221,7 +221,7 @@ foreach ($functions as $functionName => $functionValue)
 									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
 								  "</tr>";
 
-				if($a_data[3] == "Wrapper" && (preg_match("/\[/", $a_data[2])?'o':'r') == "o" )
+				if(@$a_data[3] == "Wrapper" && (preg_match("/\[/", $a_data[2])?'o':'r') == "o" )
 					$needsWrapper = false;
 			}
 
@@ -298,7 +298,7 @@ foreach ($functions as $functionName => $functionValue)
 		 if ( $warning )
 		 	$extra            .= "\r\n#### ⚠️\r\n{$warning_data}\r\n\r\n<br>\r\n";
 		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n<br>\r\n";
-		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n<br>\r\n";
+		 $extra               .= "\r\n#### Returns:\r\n".(isset($returning)?$returning:'')."\r\n\r\n<br>\r\n";
 
 		 $_wrapper             = ($needsWrapper) ? "('.wrapper')" : null;
 
@@ -331,7 +331,7 @@ if ( !isBeta() )
 else
 	file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
 
-file_put_contents("../_.js.wiki/Function_List_" . end(explode("/",__dir__)) . ".md", $WIKI);
+file_put_contents("../_.js.wiki/Function_List_" . @end(explode("/",__dir__)) . ".md", $WIKI);
 // i promise, that the _.js code is not so terrible as this one!
 /// Changed: Added those nasty comments. (SEP'15)
 function writeToWiki($filename, $contents)
