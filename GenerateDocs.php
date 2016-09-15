@@ -190,7 +190,7 @@ foreach ($functions as $functionName => $functionValue) {
             echo('[' . $ex[0] . '] ERROR ANNOTATION FAIL'.PHP_EOL.'GOT:' . print_r($functionValue) . PHP_EOL);
         }
     }
-    for ($i=0; $i < sizeof($functionValue['annotation']); $i++) {
+    for ($i=0; $i < sizeof(@$functionValue['annotation']); $i++) { // PHP7
         $a_data = explode("@", $functionValue['annotation'][$i]);
         $a_data = "@".$a_data[1];
         $a_data = explode(" ", $a_data);
