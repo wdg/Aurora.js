@@ -276,9 +276,9 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
 
 		if ( !isBeta() )
-			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/function_{$functionName}'>Documentation</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . @end(@explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/function_{$functionName}'>Documentation</a></td></tr>";
 		else
-			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . end(explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/flbeta_function_{$functionName}'>Documentation</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . @end(@explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/flbeta_function_{$functionName}'>Documentation</a></td></tr>";
 
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
