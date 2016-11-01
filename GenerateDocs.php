@@ -227,7 +227,7 @@ foreach ($functions as $functionName => $functionValue)
 									"<td>" . (preg_match("/\[/", $a_data[2])?'Optional':'Required') . "</td>" .
 								  "</tr>";
 
-				if($a_data[3] == "Wrapper" && (preg_match("/\[/", $a_data[2])?'o':'r') == "o" )
+				if(@$a_data[3] == "Wrapper" && (preg_match("/\[/", $a_data[2])?'o':'r') == "o" )
 					$needsWrapper = false;
 			}
 
@@ -306,6 +306,7 @@ foreach ($functions as $functionName => $functionValue)
 		 if ( $warning )
 		 	$extra            .= "\r\n#### ⚠️\r\n{$warning_data}\r\n\r\n<br>\r\n";
 		 $extra               .= "\r\n#### Example:\r\n{$example}\r\n\r\n<br>\r\n";
+		 if ( isset ( $returning ) )
 		 $extra               .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n<br>\r\n";
 
 		 $_wrapper             = ($needsWrapper) ? "('.wrapper')" : null;

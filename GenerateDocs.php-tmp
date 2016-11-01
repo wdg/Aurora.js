@@ -221,7 +221,7 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 					"<td>".(preg_match("/\[/", $a_data[2])?'Optional':'Required')."</td>".
 					"</tr>";
 
-					if ($a_data[3] == "Wrapper" && (preg_match("/\[/", $a_data[2])?'o':'r') == "o") {
+					if (@$a_data[3] == "Wrapper" && (preg_match("/\[/", $a_data[2])?'o':'r') == "o") {
 						$needsWrapper = false;
 					}
 				}
@@ -317,79 +317,82 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 }
 \r\n\r\n<br>\r\n";
 								$extra .= "\r\n#### Example:\r\n{$example}\r\n\r\n<br>\r\n";
-								$extra .= "\r\n#### Returns:\r\n{$returning}\r\n\r\n<br>\r\n";
+								if (isset($returning)) {
+									$extra .= "\r\n#### Returns:\r\n{$returning}
+}
+\r\n\r\n<br>\r\n";
 
-								$_wrapper = ($needsWrapper)?"('.wrapper')":null;
+									$_wrapper = ($needsWrapper)?"('.wrapper')":null;
 
-								writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
-									($isDeprecated?"\r\n".'##### 🚧 DO NOT USE ANYMORE!!!<br>'."\r\n":"").
-									implode("<br />", $functionValue['text'])."<br>\r\n".
-									$extra.
-									(isBeta()
-										?"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List%20(Beta))\r\n"
-										:"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List)\r\n")
-								);
-							}
+									writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
+										($isDeprecated?"\r\n".'##### 🚧 DO NOT USE ANYMORE!!!<br>'."\r\n":"").
+										implode("<br />", $functionValue['text'])."<br>\r\n".
+										$extra.
+										(isBeta()
+											?"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List%20(Beta))\r\n"
+											:"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List)\r\n")
+									);
+								}
 
-							// Finally the end is coming, we'll putting it in the design
-							// $replace
-							$replace = preg_replace("/VERSION/", $version, $replace);
-							$replace = preg_replace("/GLOBALS/", $replaceArray['glob'], $replace);
-							$replace = preg_replace("/MENU/", $replaceArray['menu'], $replace);
-							$replace = preg_replace("/CONTENT/", $replaceArray['text'], $replace);
-							$replace = preg_replace("/TESTS/", $replaceArray['test'], $replace);
+								// Finally the end is coming, we'll putting it in the design
+								// $replace
+								$replace = preg_replace("/VERSION/", $version, $replace);
+								$replace = preg_replace("/GLOBALS/", $replaceArray['glob'], $replace);
+								$replace = preg_replace("/MENU/", $replaceArray['menu'], $replace);
+								$replace = preg_replace("/CONTENT/", $replaceArray['text'], $replace);
+								$replace = preg_replace("/TESTS/", $replaceArray['test'], $replace);
 
-							// write it down.
-							file_put_contents("index.html", $replace);
+								// write it down.
+								file_put_contents("index.html", $replace);
 
-							$WIKI .= "</table>\r\n";
+								$WIKI .= "</table>\r\n";
 
-							// Update wiki! (Only if finial (final = one version behind.))
-							if (!isBeta()) {
-								file_put_contents("../_.js.wiki/Function List.md", $WIKI);
-							} else {
+								// Update wiki! (Only if finial (final = one version behind.))
+								if (!isBeta()) {
+									file_put_contents("../_.js.wiki/Function List.md", $WIKI);
+								} else {
 
-								file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
-							}
+									file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
+								}
 
-							// i promise, that the _.js code is not so terrible as this one!
-							/// Changed: Added those nasty comments. (SEP'15)
-							function writeToWiki($filename, $contents) {
-								global $LOGO;
+								// i promise, that the _.js code is not so terrible as this one!
+								/// Changed: Added those nasty comments. (SEP'15)
+								function writeToWiki($filename, $contents) {
+									global $LOGO;
 
-								$write = $LOGO;
-								if (preg_match("/⚠️/", $contents)) {
-									$write .= "# ⚠️ Function {$filename}
+									$write = $LOGO;
+									if (preg_match("/⚠️/", $contents)) {
+										$write .= "# ⚠️ Function {$filename}
 }
 \r\n\r\n";
-									 elseif (preg_match("/🚧/", $contents)) {
-										$write .= "# 🚧 Function {$filename}
+										 elseif (preg_match("/🚧/", $contents)) {
+											$write .= "# 🚧 Function {$filename}
 }
 \r\n\r\n";
-										 elseif (preg_match("/📝/", $contents)) {
-											$write .= "# 📝 Function {$filename}
+											 elseif (preg_match("/📝/", $contents)) {
+												$write .= "# 📝 Function {$filename}
 }
 \r\n\r\n";
-											 elseif (preg_match("/💡/", $contents)) {
-												$write .= "# 💡 Function {$filename}
+												 elseif (preg_match("/💡/", $contents)) {
+													$write .= "# 💡 Function {$filename}
 }
 \r\n\r\n";
-												 else {
+													 else {
 
-													$write .= "# Function {$filename}
+														$write .= "# Function {$filename}
 }
 \r\n\r\n";
-													$write .= $contents;
+														$write .= $contents;
 
-													// Update wiki! (Only if finial (final = one version behind.))
-													if (!isBeta()) {
-														file_put_contents("../_.js.wiki/functions/function_{$filename}
+														// Update wiki! (Only if finial (final = one version behind.))
+														if (!isBeta()) {
+															file_put_contents("../_.js.wiki/functions/function_{$filename}
 }
 .md", $write);
-														 else {
+															 else {
 
-															file_put_contents("../_.js.wiki/functions/flbeta_function_{$filename}
+																file_put_contents("../_.js.wiki/functions/flbeta_function_{$filename}
 }
 .md", $write);
-														}
-														?>
+															}
+															?>
