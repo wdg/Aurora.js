@@ -26,7 +26,7 @@ function isBeta ( )
 }
 
 // Get the version (name of dir, splitted into dots)
-$version 	 = end(explode("/",__dir__));
+$version 	 = @end(explode("/",__dir__));
 $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." . substr($version, 2, 1);
 
 // WIKI WIKI!
