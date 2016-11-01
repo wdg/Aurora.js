@@ -18,7 +18,7 @@ function fullText ( $fromArray, $start )
 
 function isBeta ( )
 {
-	$ver = (end(explode("/",__dir__)))+1;
+	$ver = (@end(@explode("/",__dir__)))+1;
 	if (strlen($ver) == 1) $ver = "00".$ver;
 	if (strlen($ver) == 2) $ver = "0". $ver;
 
@@ -178,7 +178,7 @@ foreach ($functions as $functionName => $functionValue)
 		$warning_data  = null;
 		$toDO_data     = null;
 		$example       = null;
-		$removedIn     = end(explode("/",__dir__));
+		$removedIn     = @end(@explode("/",__dir__));
 		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 
 		if ($debug) 
