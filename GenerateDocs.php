@@ -198,12 +198,14 @@ foreach ($functions as $functionName => $functionValue)
 
 			if ($a_data[0] == "@cli")
 			{
-				$isCLIOnly  = true;
+				$isCLIOnly   = true;
+				$isUniversal = false;
 			}
 
 			if ($a_data[0] == "@web")
 			{
-				$isWebOnly  = true;
+				$isWebOnly   = true;
+				$isUniversal = false;
 			}
 
 			if ($a_data[0] == "@universal")
