@@ -48,7 +48,7 @@ $LOGO       .= " 	                    " . $version . " Final\r\n";
 
 $WIKI        = $LOGO;
 $WIKI       .= "# Function List ({$version})\r\n";
-$WIKI       .= "\r\n<table width='100%'><tr><td>Function</td><td>Documentation</td><!--<td>Wiki</td>--></tr>";
+$WIKI       .= "\r\n<table width='100%'><tr><td>For</td><td>Function</td><td>Documentation</td><!--<td>Wiki</td>--></tr>";
 
 // Get the file to parse
 $file        = "_.js";
@@ -181,7 +181,7 @@ foreach ($functions as $functionName => $functionValue)
 		$toDO_data     = null;
 		$example       = null;
 		$removedIn     = @end(@explode("/",__dir__));
-		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>For</td><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
+		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 
 		if ($debug) 
 		{
