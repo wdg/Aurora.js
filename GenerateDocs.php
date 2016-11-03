@@ -310,18 +310,18 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['text'] .= "<br /><br /><br /><br /><br />";
 
 		 $extra                = null;
-		 if ( $isCLIOnly )
-		 	$extra            .= "\r\n#### 🖥 CLI Only\r\nThis function is only for the Command Line Interface\r\n\r\n<br>\r\n";
-		 if ( $isWebOnly )
-		 	$extra            .= "\r\n#### 🕸 Web Only\r\nThis function is only for websites\r\n\r\n<br>\r\n";
-		 if ( $isUniversal )
-		 	$extra            .= "\r\n#### 🌍 Universal function\r\nThis function is for the Command Line Interface and Websites!\r\n\r\n<br>\r\n";
 		 if ( $isDeprecated )
 		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wdg/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n<br>\r\n";
 		 //⛔️
 		 if ( $isInternal )
 		 	$extra            .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n<br>\r\n";
 		 $extra               .= $parameterlist . "<br>\r\n";
+		 if ( $isCLIOnly )
+		 	$extra            .= "\r\n### 🖥 CLI Only\r\nThis function is only for the Command Line Interface\r\n\r\n<br>\r\n";
+		 if ( $isWebOnly )
+		 	$extra            .= "\r\n### 🕸 Web Only\r\nThis function is only for websites\r\n\r\n<br>\r\n";
+		 if ( $isUniversal )
+		 	$extra            .= "\r\n### 🌍 Universal function\r\nThis function is for the Command Line Interface and Websites!\r\n\r\n<br>\r\n";
 		 if ( $toDo )
 		 	$extra            .= "\r\n#### Todo:\r\n{$toDO_data}\r\n\r\n<br>\r\n";
 		 if ( $warning )
