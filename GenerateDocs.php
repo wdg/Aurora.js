@@ -173,6 +173,7 @@ foreach ($functions as $functionName => $functionValue)
 	    $isWebOnly     = false;
 	    $isUniversal   = true;
 		$isDeprecated  = false;
+		$alternative   = false;
 		$toDo          = false;
 		$isNew         = false;
 		$isInternal    = false;
@@ -216,6 +217,11 @@ foreach ($functions as $functionName => $functionValue)
 			if ($a_data[0] == "@deprecated")
 			{
 				$isDeprecated  = true;
+			}
+
+			if ($a_data[0] == "@alternative")
+			{
+				$alternative   = $a_data[1];
 			}
 
 			if ($a_data[0] == "@removed")
@@ -313,7 +319,10 @@ foreach ($functions as $functionName => $functionValue)
 
 		 $extra                = null;
 		 if ( $isDeprecated )
-		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wdg/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n<br>\r\n";
+		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wdg/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n";
+		 if ( $alternative != false )
+		 	$extra            .= "Use [_.{$alternative}](https://github.com/wdg/_.js/wiki/function_{$alternative}) as alternative.\r\n";
+		 	$extra 			  .= "\r\n<br>\r\n";
 		 //⛔️
 		 if ( $isInternal )
 		 	$extra            .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n<br>\r\n";

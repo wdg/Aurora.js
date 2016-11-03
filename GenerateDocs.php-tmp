@@ -173,6 +173,7 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 			$isWebOnly     = false;
 			$isUniversal   = true;
 			$isDeprecated  = false;
+			$alternative   = false;
 			$toDo          = false;
 			$isNew         = false;
 			$isInternal    = false;
@@ -212,6 +213,10 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 
 				if ($a_data[0] == "@deprecated") {
 					$isDeprecated = true;
+				}
+
+				if ($a_data[0] == "@alternative") {
+					$alternative = $a_data[1];
 				}
 
 				if ($a_data[0] == "@removed") {
@@ -322,100 +327,105 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 					if ($isDeprecated) {
 						$extra .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}
 }
-](https://github.com/wdg/_.js/wiki/Changed_in_" .implode('', explode(".", $removedIn)).")\r\n\r\n<br>\r\n";
-						//⛔️
-						if ($isInternal) {
-							$extra .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n<br>\r\n";
-						}
+](https://github.com/wdg/_.js/wiki/Changed_in_" .implode('', explode(".", $removedIn)).")\r\n";
+						if ($alternative != false) {
+							$extra .= "Use [_.{$alternative}
+}
+](https://github.com/wdg/_.js/wiki/function_{$alternative}) as alternative.\r\n";
+							$extra .= "\r\n<br>\r\n";
+							//⛔️
+							if ($isInternal) {
+								$extra .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n<br>\r\n";
+							}
 
-						if ($isCLIOnly) {
-							$extra .= "\r\n### 🖥 CLI Only\r\nThis function is only for the Command Line Interface\r\n\r\n<br>\r\n";
-						}
+							if ($isCLIOnly) {
+								$extra .= "\r\n### 🖥 CLI Only\r\nThis function is only for the Command Line Interface\r\n\r\n<br>\r\n";
+							}
 
-						if ($isWebOnly) {
-							$extra .= "\r\n### 🕸 Web Only\r\nThis function is only for websites\r\n\r\n<br>\r\n";
-						}
+							if ($isWebOnly) {
+								$extra .= "\r\n### 🕸 Web Only\r\nThis function is only for websites\r\n\r\n<br>\r\n";
+							}
 
-						if ($isUniversal) {
-							$extra .= "\r\n### 🌍 Universal function\r\nThis function is for the Command Line Interface and Websites!\r\n\r\n<br>\r\n";
-						}
+							if ($isUniversal) {
+								$extra .= "\r\n### 🌍 Universal function\r\nThis function is for the Command Line Interface and Websites!\r\n\r\n<br>\r\n";
+							}
 
-						$extra .= $parameterlist."<br>\r\n";
+							$extra .= $parameterlist."<br>\r\n";
 
-						if ($toDo) {
-							$extra .= "\r\n#### Todo:\r\n{$toDO_data}
+							if ($toDo) {
+								$extra .= "\r\n#### Todo:\r\n{$toDO_data}
 }
 \r\n\r\n<br>\r\n";
-							if ($warning) {
-								$extra .= "\r\n#### ⚠️\r\n{$warning_data}
+								if ($warning) {
+									$extra .= "\r\n#### ⚠️\r\n{$warning_data}
 }
 \r\n\r\n<br>\r\n";
-								$extra .= "\r\n#### Example:\r\n{$example}\r\n\r\n<br>\r\n";
-								if (isset($returning)) {
-									$extra .= "\r\n#### Returns:\r\n{$returning}
+									$extra .= "\r\n#### Example:\r\n{$example}\r\n\r\n<br>\r\n";
+									if (isset($returning)) {
+										$extra .= "\r\n#### Returns:\r\n{$returning}
 }
 \r\n\r\n<br>\r\n";
 
-									$_wrapper = ($needsWrapper)?"('.wrapper')":null;
+										$_wrapper = ($needsWrapper)?"('.wrapper')":null;
 
-									writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
-										($isDeprecated?"\r\n".'##### 🚧 DO NOT USE ANYMORE!!!<br>'."\r\n":"").
-										implode("<br />", $functionValue['text'])."<br>\r\n".
-										$extra.
-										(isBeta()
-											?"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List%20(Beta))\r\n"
-											:"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List)\r\n")
-									);
-								}
+										writeToWiki($functionName, "#### {$function_before}`_{$_wrapper}.{$functionValue['function']}`{$function_after}\r\n<br />" .
+											($isDeprecated?"\r\n".'##### 🚧 DO NOT USE ANYMORE!!!<br>'."\r\n":"").
+											implode("<br />", $functionValue['text'])."<br>\r\n".
+											$extra.
+											(isBeta()
+												?"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List%20(Beta))\r\n"
+												:"<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List)\r\n")
+										);
+									}
 
-								// Finally the end is coming, we'll putting it in the design
-								// $replace
-								$replace = preg_replace("/VERSION/", $version, $replace);
-								$replace = preg_replace("/GLOBALS/", $replaceArray['glob'], $replace);
-								$replace = preg_replace("/MENU/", $replaceArray['menu'], $replace);
-								$replace = preg_replace("/CONTENT/", $replaceArray['text'], $replace);
-								$replace = preg_replace("/TESTS/", $replaceArray['test'], $replace);
+									// Finally the end is coming, we'll putting it in the design
+									// $replace
+									$replace = preg_replace("/VERSION/", $version, $replace);
+									$replace = preg_replace("/GLOBALS/", $replaceArray['glob'], $replace);
+									$replace = preg_replace("/MENU/", $replaceArray['menu'], $replace);
+									$replace = preg_replace("/CONTENT/", $replaceArray['text'], $replace);
+									$replace = preg_replace("/TESTS/", $replaceArray['test'], $replace);
 
-								// write it down.
-								file_put_contents("index.html", $replace);
+									// write it down.
+									file_put_contents("index.html", $replace);
 
-								$WIKI .= "</table>\r\n";
-
-								// Update wiki! (Only if finial (final = one version behind.))
-								if (!isBeta()) {
-									file_put_contents("../_.js.wiki/Function List.md", $WIKI);
-								} else {
-
-									file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
-								}
-
-								// i promise, that the _.js code is not so terrible as this one!
-								/// Changed: Added those nasty comments. (SEP'15)
-								function writeToWiki($filename, $contents) {
-									global $LOGO;
-
-									$write = $LOGO;
-									// if ( preg_match("/⚠️/", $contents) )
-									// $write .= "# ⚠️ Function {$filename}\r\n\r\n";
-									// elseif ( preg_match("/🚧/", $contents))
-									// $write .= "# 🚧 Function {$filename}\r\n\r\n";
-									// elseif ( preg_match("/📝/", $contents))
-									// $write .= "# 📝 Function {$filename}\r\n\r\n";
-									// elseif ( preg_match("/💡/", $contents))
-									// $write .= "# 💡 Function {$filename}\r\n\r\n";
-									// else
-									$write .= "# Function {$filename}\r\n\r\n";
-									$write .= $contents;
+									$WIKI .= "</table>\r\n";
 
 									// Update wiki! (Only if finial (final = one version behind.))
 									if (!isBeta()) {
-										file_put_contents("../_.js.wiki/functions/function_{$filename}
-}
-.md", $write);
-										 else {
+										file_put_contents("../_.js.wiki/Function List.md", $WIKI);
+									} else {
 
-											file_put_contents("../_.js.wiki/functions/flbeta_function_{$filename}
+										file_put_contents("../_.js.wiki/Function List (Beta).md", $WIKI);
+									}
+
+									// i promise, that the _.js code is not so terrible as this one!
+									/// Changed: Added those nasty comments. (SEP'15)
+									function writeToWiki($filename, $contents) {
+										global $LOGO;
+
+										$write = $LOGO;
+										// if ( preg_match("/⚠️/", $contents) )
+										// $write .= "# ⚠️ Function {$filename}\r\n\r\n";
+										// elseif ( preg_match("/🚧/", $contents))
+										// $write .= "# 🚧 Function {$filename}\r\n\r\n";
+										// elseif ( preg_match("/📝/", $contents))
+										// $write .= "# 📝 Function {$filename}\r\n\r\n";
+										// elseif ( preg_match("/💡/", $contents))
+										// $write .= "# 💡 Function {$filename}\r\n\r\n";
+										// else
+										$write .= "# Function {$filename}\r\n\r\n";
+										$write .= $contents;
+
+										// Update wiki! (Only if finial (final = one version behind.))
+										if (!isBeta()) {
+											file_put_contents("../_.js.wiki/functions/function_{$filename}
 }
 .md", $write);
-										}
-										?>
+											 else {
+
+												file_put_contents("../_.js.wiki/functions/flbeta_function_{$filename}
+}
+.md", $write);
+											}
+											?>
