@@ -321,7 +321,7 @@ foreach ($functions as $functionName => $functionValue)
 		 if ( $isDeprecated )
 		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wdg/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n";
 		 if ( $alternative != false )
-		 	$extra            .= "\r\nUse [_.{$alternative}](https://github.com/wdg/_.js/wiki/" . (isBeta()?'flbeta_':'') . "function_{$alternative}) as alternative.\r\n";
+		 	$extra            .= "\r\nUse [_.{$alternative}(...)](https://github.com/wdg/_.js/wiki/" . (isBeta()?'flbeta_':'') . "function_{$alternative}) as alternative.\r\n";
 		 	$extra 			  .= "\r\n<br>\r\n";
 		 //⛔️
 		 if ( $isInternal )
