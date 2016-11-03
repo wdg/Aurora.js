@@ -329,9 +329,9 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 }
 ](https://github.com/wdg/_.js/wiki/Changed_in_" .implode('', explode(".", $removedIn)).")\r\n";
 						if ($alternative != false) {
-							$extra .= "Use [_.{$alternative}
+							$extra .= "\r\nUse [_.{$alternative}
 }
-](https://github.com/wdg/_.js/wiki/function_{$alternative}) as alternative.\r\n";
+](https://github.com/wdg/_.js/wiki/" .(isBeta()?'flbeta_':'')."function_{$alternative}) as alternative.\r\n";
 							$extra .= "\r\n<br>\r\n";
 							//⛔️
 							if ($isInternal) {
