@@ -170,6 +170,8 @@ foreach ($functions as $functionName => $functionValue)
 		# Terrible code... (did i say it before?)
 	    $needsWrapper  = true;
 	    $isCLIOnly     = false;
+	    $isWebOnly     = false;
+	    $isUniversal   = true;
 		$isDeprecated  = false;
 		$toDo          = false;
 		$isNew         = false;
@@ -197,6 +199,16 @@ foreach ($functions as $functionName => $functionValue)
 			if ($a_data[0] == "@cli")
 			{
 				$isCLIOnly  = true;
+			}
+
+			if ($a_data[0] == "@web")
+			{
+				$isWebOnly  = true;
+			}
+
+			if ($a_data[0] == "@universal")
+			{
+				$isUniversal  = true;
 			}
 
 			if ($a_data[0] == "@deprecated")
@@ -265,12 +277,17 @@ foreach ($functions as $functionName => $functionValue)
 
 		$parameterlist .= "</table>";
 
-		$function_before = ($isDeprecated) ? '⚠️ <s>'  : '';
+		if ($isUniversal) $function_before = '🌍';
+		if ($isCLIOnly) $function_before = '🖥';
+		if ($isWebOnly) $function_before = '🕸';
+		$function_before .= ' | ';
+
+		$function_before .= ($isDeprecated) ? '⚠️ <s>'  : '';
 		$function_after  = ($isDeprecated) ? '</s>' : '';
 
-		if($function_before=='' && $toDo)  $function_before = '📝 '; // Is under construction
-		if($function_before=='' && $isNew) $function_before = '💡 '; // Light bulb (new)
-		if($isInternal)					   $function_before = '⛔️ '; // Internal use, Overwrite all others
+		if($function_before=='' && $toDo)  $function_before .= '📝 '; // Is under construction
+		if($function_before=='' && $isNew) $function_before .= '💡 '; // Light bulb (new)
+		if($isInternal)					   $function_before .= '⛔️ '; // Internal use, Overwrite all others
 
 		// Ok, the menu need some items (functions)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
@@ -294,7 +311,11 @@ foreach ($functions as $functionName => $functionValue)
 
 		 $extra                = null;
 		 if ( $isCLIOnly )
-		 	$extra            .= "\r\n#### CLI Only\r\nThis function is only for the Command Line Interface!\r\n\r\n<br>\r\n";
+		 	$extra            .= "\r\n#### 🖥 CLI Only\r\nThis function is only for the Command Line Interface\r\n\r\n<br>\r\n";
+		 if ( $isWebOnly )
+		 	$extra            .= "\r\n#### 🕸 Web Only\r\nThis function is only for websites\r\n\r\n<br>\r\n";
+		 if ( $isUniversal )
+		 	$extra            .= "\r\n#### 🌍 Universal function\r\nThis function is for the Command Line Interface and Websites!\r\n\r\n<br>\r\n";
 		 if ( $isDeprecated )
 		 	$extra            .= "\r\n## Deprecated!\r\nWarning will be removed in [v{$removedIn}](https://github.com/wdg/_.js/wiki/Changed_in_" . implode('',explode(".", $removedIn)) .")\r\n\r\n<br>\r\n";
 		 //⛔️
@@ -347,15 +368,15 @@ function writeToWiki($filename, $contents)
 	global $LOGO;
 
 	$write  = $LOGO;
-	if ( preg_match("/⚠️/", $contents) )
-		$write .= "# ⚠️ Function {$filename}\r\n\r\n";
-	elseif ( preg_match("/🚧/", $contents))
-		$write .= "# 🚧 Function {$filename}\r\n\r\n";
-	elseif ( preg_match("/📝/", $contents))
-		$write .= "# 📝 Function {$filename}\r\n\r\n";
-	elseif ( preg_match("/💡/", $contents))
-		$write .= "# 💡 Function {$filename}\r\n\r\n";
-	else
+	// if ( preg_match("/⚠️/", $contents) )
+		// $write .= "# ⚠️ Function {$filename}\r\n\r\n";
+	// elseif ( preg_match("/🚧/", $contents))
+		// $write .= "# 🚧 Function {$filename}\r\n\r\n";
+	// elseif ( preg_match("/📝/", $contents))
+		// $write .= "# 📝 Function {$filename}\r\n\r\n";
+	// elseif ( preg_match("/💡/", $contents))
+		// $write .= "# 💡 Function {$filename}\r\n\r\n";
+	// else
 		$write .= "# Function {$filename}\r\n\r\n";
 	$write .= $contents;
 
