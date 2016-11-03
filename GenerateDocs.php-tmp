@@ -326,7 +326,6 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 							$extra .= "\r\n## Internal Function!\r\n⛔️ Please do **not** use for plugins!\r\n\r\n<br>\r\n";
 						}
 
-						$extra .= $parameterlist."<br>\r\n";
 						if ($isCLIOnly) {
 							$extra .= "\r\n### 🖥 CLI Only\r\nThis function is only for the Command Line Interface\r\n\r\n<br>\r\n";
 						}
@@ -338,6 +337,8 @@ for ($i = 0; $i < sizeof($rettest[2]); $i++) {
 						if ($isUniversal) {
 							$extra .= "\r\n### 🌍 Universal function\r\nThis function is for the Command Line Interface and Websites!\r\n\r\n<br>\r\n";
 						}
+
+						$extra .= $parameterlist."<br>\r\n";
 
 						if ($toDo) {
 							$extra .= "\r\n#### Todo:\r\n{$toDO_data}
