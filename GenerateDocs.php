@@ -181,7 +181,7 @@ foreach ($functions as $functionName => $functionValue)
 		$toDO_data     = null;
 		$example       = null;
 		$removedIn     = @end(@explode("/",__dir__));
-		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
+		$parameterlist = "\r\n#### Parameter list\r\n<table><tr><td>For</td><td>Type</td><td>@var</td><td>Description</td><td>Required</td></tr>";
 
 		if ($debug) 
 		{
@@ -277,12 +277,12 @@ foreach ($functions as $functionName => $functionValue)
 
 		$parameterlist .= "</table>";
 
-		if ($isUniversal) $function_before = '🌍';
-		if ($isCLIOnly) $function_before = '🖥';
-		if ($isWebOnly) $function_before = '🕸';
-		$function_before .= ' | ';
+		if ($isUniversal) $icon = '🌍';
+		if ($isCLIOnly)   $icon = '🖥';
+		if ($isWebOnly)   $icon = '🕸';
+		// $function_before .= ' | ';
 
-		$function_before .= ($isDeprecated) ? '⚠️ <s>'  : '';
+		$function_before = ($isDeprecated) ? '⚠️ <s>'  : '';
 		$function_after  = ($isDeprecated) ? '</s>' : '';
 
 		if($function_before=='' && $toDo)  $function_before .= '📝 '; // Is under construction
@@ -293,9 +293,9 @@ foreach ($functions as $functionName => $functionValue)
 		$replaceArray['menu'] .= "<li class=\"nav-chapter\"><a href=\"#func_{$functionName}\">{$function_before}{$functionValue['function']}{$function_after}</a></li>";
 
 		if ( !isBeta() )
-			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . @end(@explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/function_{$functionName}'>Documentation</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$icon}</td><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . @end(@explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/function_{$functionName}'>Documentation</a></td></tr>";
 		else
-			$WIKI				  .= "<tr><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . @end(@explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/flbeta_function_{$functionName}'>Documentation</a></td></tr>";
+			$WIKI				  .= "<tr><td>{$icon}</td><td>{$function_before}{$functionValue['function']}{$function_after}</td><!--<td><a target='_blank' href='https://wdg.github.io/_.js/" . @end(@explode("/",__dir__)) . "/index.html#func_{$functionName}'>Documentation</td>--><td><a href='https://github.com/wdg/_.js/wiki/flbeta_function_{$functionName}'>Documentation</a></td></tr>";
 
 		// And a 'a name' to navigate to
 		$replaceArray['text'] .= "<a name=\"func_{$functionName}\">";
