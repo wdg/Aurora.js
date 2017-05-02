@@ -31,8 +31,8 @@ $version 	 = "v" . substr($version, 0, 1) . "." . substr($version, 1, 1) . "." .
 
 // WIKI WIKI!
 if(isBeta())
-$LOGO        = "                !             _          \r\n".
-			   "                             (_)         \r\n";
+$LOGO        = "                         _          \r\n".
+			   "                        (_)         \r\n";
 else
 $LOGO        = ""."".""."".""."".""."".""."".""."".""."";
 $LOGO       .= "                	          _    _____ \r\n";
