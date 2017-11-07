@@ -1,0 +1,47 @@
+<script type="text/javascript">
+var __ = {merge: function (a, b) {
+    var copy = {};
+    __.extend(copy, a, [Array]);
+    __.extend(copy, b, [Array]);
+    return copy;
+},
+
+extend: function extend(a, b, excludeInstances) {
+    for (var prop in b)
+        if (b.hasOwnProperty(prop)) {
+            var isInstanceOfExcluded = false;
+            if (excludeInstances)
+                for (var i = 0; i < excludeInstances.length; i++)
+                    if (b[prop] instanceof excludeInstances[i])
+                        isInstanceOfExcluded = true;
+
+            if (typeof b[prop] === 'object' && !isInstanceOfExcluded) {
+                a[prop] = a[prop] !== undefined ? a[prop] : {};
+                extend(a[prop], b[prop], excludeInstances);
+            } else
+                a[prop] = b[prop];
+        }
+}}
+
+var x = function (y) {
+	var y = document.querySelector(y)
+	var z = {version:1, test:'cool, this works'}
+
+	console.log('MERGING')
+	console.log(__.merge(y, z))
+	console.log('-------------');
+	console.log('EXTENDING')
+	console.log(__.extend(y, z))
+	console.log(y.test)
+
+	return y + z
+}
+
+</script>
+
+<span id='test' class='test'>ABC</span>
+
+<script type="text/javascript">
+	console.log('-- E O F --');
+console.log(x('.test'))
+</script>
