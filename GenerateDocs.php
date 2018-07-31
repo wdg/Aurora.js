@@ -169,6 +169,7 @@ for ($i = 0; $i < sizeof($thitest[0]) - 1; $i++) {
 }
 
 // Put it in the layout (a sort of ;) )
+$parent = null;
 foreach ($functions as $functionName => $functionValue) {
 	$functionValue['function'] = implode(", ", explode(",", $functionValue['function'])); //Preg fun :P
 
@@ -327,13 +328,15 @@ foreach ($functions as $functionName => $functionValue) {
 	// ok, this terrible code is for showing it on the page
 	$replaceArray['text'] .= "<h3 style='font-size: 200%;'>{$function_before}{$functionValue['function']}{$function_after}</h3><p>";
 	if (sizeof($functionValue['text']) < 1) {
-		echo "---------------------";
-		echo "------ WARNING ------";
-		echo "---------------------";
+		echo "---------------------" . PHP_EOL;
+		echo "------ WARNING ------" . PHP_EOL;
+		echo "---------------------" . PHP_EOL;
 		print_r($functionValue);
-		echo "---------------------";
-		echo "----- /WARNING ------";
-		echo "---------------------";
+		echo "PARENT:" . PHP_EOL;
+		print_r($parent);
+		echo "---------------------" . PHP_EOL;
+		echo "----- /WARNING ------" . PHP_EOL;
+		echo "---------------------" . PHP_EOL;
 	}
 
 	$replaceArray['text'] .= implode("<br />", $functionValue['text']);
@@ -394,6 +397,8 @@ foreach ($functions as $functionName => $functionValue) {
 			? "<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List%20(Beta))\r\n"
 			: "<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List)\r\n")
 	);
+
+	$parent = $functionValue;
 }
 
 // Finally the end is coming, we'll putting it in the design
