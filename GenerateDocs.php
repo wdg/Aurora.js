@@ -394,8 +394,8 @@ foreach ($functions as $functionName => $functionValue) {
 		implode("<br />", $functionValue['text']) . "<br>\r\n" .
 		$extra .
 		(isBeta()
-			? "<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List%20(Beta))\r\n"
-			: "<br><br>[Back to function list](https://github.com/wdg/_.js/wiki/Function%20List)\r\n")
+			? "<br><br><a href='https://github.com/wdg/_.js/wiki/Function%20List%20(Beta)'>Back to function list</a>\r\n"
+			: "<br><br><a href='https://github.com/wdg/_.js/wiki/Function%20List'>Back to function list</a>\r\n")
 	);
 
 	$parent = $functionValue;
