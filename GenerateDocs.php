@@ -327,12 +327,15 @@ foreach ($functions as $functionName => $functionValue) {
 	// ok, this terrible code is for showing it on the page
 	$replaceArray['text'] .= "<h3 style='font-size: 200%;'>{$function_before}{$functionValue['function']}{$function_after}</h3><p>";
 	if (sizeof($functionValue['text']) < 1) {
+		echo "---------------------";
+		echo "------ WARNING ------";
+		echo "---------------------";
 		print_r($functionValue);
-		echo "------------------------";
-		print_r($functionValue['text']);
-		exit('WARNING');
+		echo "---------------------";
+		echo "----- /WARNING ------";
+		echo "---------------------";
 	}
-	
+
 	$replaceArray['text'] .= implode("<br />", $functionValue['text']);
 	$replaceArray['text'] .= "<br /><br /><div style='background: lightyellow;'><p>";
 	$replaceArray['text'] .= implode("<br />", $functionValue['annotation']);
