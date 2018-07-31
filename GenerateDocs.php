@@ -86,7 +86,7 @@ function isAnnotation($s) {
 preg_match_all("#this\.(.*)=(.*);#", $file, $thitest);
 
 // Get the comments (yes)
-preg_match_all("#/\*[^*]*\*+([^/][^*]*\*+)*/#", $file, $comtest);
+preg_match_all("#/\*\*[^*]*\*+([^/][^*]*\*+)*/#", $file, $comtest);
 
 // Get the function definitions (_.js)
 preg_match_all("#(.*)\: function\s?\((.*)?\)#", $file, $rettest);
