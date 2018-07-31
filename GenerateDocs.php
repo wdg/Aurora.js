@@ -5,7 +5,7 @@
 Don't blame anyone for this file.
  */
 
-$debug = true;
+$debug = false;
 
 function fullText($fromArray, $start) {
 	$myTemp = null;
